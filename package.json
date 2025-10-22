@@ -1,7 +1,7 @@
 {
   "name": "github-actions-note",
   "version": "1.0.0",
-  "description": "",
+  "description": "このリポジトリの `.github/workflows/note.yaml` は、以下のパイプラインをGitHub Actionsで実行します。",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,6 +11,7 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "playwright": "^1.55.1"
+    "@anthropic-ai/sdk": "^0.67.0",
+    "playwright": "^1.56.1"
   }
 }
