@@ -101,7 +101,7 @@ jobs:
           ].join("\n");
 
           const response = await client.messages.create({
-            model: "claude-3-haiku-20240307",
+            model: "claude-3-7-sonnet-20250219",
             system: sysPrompt,
             messages: [{ role: "user", content: userPrompt }],
             max_tokens: 4000,
@@ -133,7 +133,7 @@ jobs:
             .note-artifacts/research.md
 
   write:
-    name: Write (Claude Sonnet 4.0)
+    name: Write (Claude Sonnet 3.7)
     needs: research
     runs-on: ubuntu-latest
     env:
@@ -176,7 +176,7 @@ jobs:
           const theme=process.env.THEME||''; const target=process.env.TARGET||''; const message=process.env.MESSAGE||''; const cta=process.env.CTA||'';
           const inputTags=(process.env.INPUT_TAGS||'').split(',').map(s=>s.trim()).filter(Boolean);
           const researchReport=fs.readFileSync('.note-artifacts/research.md','utf8');
-          const modelName='claude-sonnet-4-5-20250929';
+          const modelName='claude-3-7-sonnet-20250219';
           function extractJsonFlexible(raw){const t=(raw||'').trim().replace(/\u200B/g,'');try{return JSON.parse(t);}catch{}const m=t.match(/```[a-zA-Z]*\s*([\s\S]*?)\s*```/);if(m&&m[1]){try{return JSON.parse(m[1].trim());}catch{}}const f=t.indexOf('{'),l=t.lastIndexOf('}');if(f!==-1&&l!==-1&&l>f){const c=t.slice(f,l+1);try{return JSON.parse(c);}catch{}}return null;}
           async function repairJson(raw){const sys='入力から {"title":string,"draftBody":string,"tags":string[]} のJSONのみ返答。';const {text}=await generateText({model:anthropic(modelName),system:sys,prompt:String(raw),temperature:0,maxTokens:8000});return extractJsonFlexible(text||'');}
           function sanitizeTitle(t){
@@ -263,7 +263,7 @@ jobs:
           import { anthropic } from '@ai-sdk/anthropic';
           import fs from 'fs';
           const draft=JSON.parse(fs.readFileSync('.note-artifacts/draft.json','utf8'));
-          const modelName='claude-sonnet-4-5-20250929';
+          const modelName='claude-3-7-sonnet-20250219';
           const TAVILY_API_KEY=process.env.TAVILY_API_KEY||'';
           if(!TAVILY_API_KEY){ console.error('TAVILY_API_KEY is not set'); process.exit(1); }
 
